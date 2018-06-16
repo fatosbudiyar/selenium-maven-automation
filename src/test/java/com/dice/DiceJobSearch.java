@@ -2,6 +2,8 @@ package com.dice;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -38,6 +40,7 @@ public class DiceJobSearch {
 		}
 		
 		String keyword ="java developer";
+	
 		driver.findElement(By.id("search-field-keyword")).clear();
 		driver.findElement(By.id("search-field-keyword")).sendKeys(keyword);
 		
@@ -59,11 +62,64 @@ public class DiceJobSearch {
 			System.out.println( "Step FAIL: Keyword : " + keyword +" search returned " +
 					countResult +" results in " + location);
 		}
+		driver.navigate().to("https://dice.com");
+		
+		List <String> keywords = new ArrayList<>();
+		keywords.add("selenium");
+		keywords.add("java");
+		keywords.add("webdriver");
+		keywords.add("selenium automation");
+		keywords.add("SDET");
+		keywords.add("software");
+		keywords.add("software engeneering");
+		keywords.add("developer");
+		keywords.add("test analyst");
+		keywords.add("web developer");
+		keywords.add("tester");
+		keywords.add("software developer");
+		keywords.add("maven");
+		keywords.add("web designer");
+		keywords.add("software development engineer");
+		keywords.add("lead sdet");
+		keywords.add("software systems engineer");
+		keywords.add("QA automation ");
+		keywords.add("QA automation engineer");
+		keywords.add("selenium SDET");
+		
+		for (int i = 0; i < keywords.size(); i++) {
+			driver.navigate().to("https://dice.com");
+			driver.findElement(By.id("search-field-keyword")).clear();
+			driver.findElement(By.id("search-field-keyword")).sendKeys(keywords.get(i));
+			
+			String location1 = "21075";
+			driver.findElement(By.id("search-field-location")).clear();
+			driver.findElement(By.id("search-field-location")).sendKeys(location1);
+			
+			driver.findElement(By.id("findTechJobs")).click();
+			
+			String count1 = driver.findElement(By.id("posiCountId")).getText();
+			System.out.println(count1);
+			//ensure count is more than 0
+			int countResult1 = Integer.parseInt(count.replace(",", ""));
+			
+			if(countResult1 > 0) {
+				System.out.println( "Step PASS: Keyword : " + keywords.get(i) +" search returned " +
+				countResult1 +" results in " + location1);
+			}else {
+				System.out.println( "Step FAIL: Keyword : " + keywords.get(i) +" search returned " +
+						countResult1 +" results in " + location1);
+			}
+			
+			
+		}
 		
 		driver.close();
 		
 		System.out.println("TEST COMPLETED -" + LocalDateTime.now());
 				
 	}
-}
+
+	
+	}
+
 
